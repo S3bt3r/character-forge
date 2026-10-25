@@ -1,0 +1,243 @@
+/* Header */
+.app-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 28px;
+  background: linear-gradient(180deg, #171b22, #12151b);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow:
+    0 0 0 4px var(--bg),
+    0 0 0 5px var(--line-soft),
+    0 24px 48px -24px rgba(0, 0, 0, 0.8);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  flex: 0 0 auto;
+  color: var(--gold);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.eyebrow-label {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  color: var(--gold);
+}
+
+.tagline {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progress-ring text {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--text-strong);
+}
+
+.progress-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.progress-text strong {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.beta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  margin: 18px 0 28px;
+  padding: 0 4px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.beta-badge {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: var(--gold);
+  color: var(--on-gold);
+}
+
+.save-panel {
+  display: grid;
+  gap: 0 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+/*
+ * Layout: chapter bar | questions | ranking. From 1200px, the question column and Questionnaire dissolve via display: contents,
+ * so that the chapter bar and chapters each get their own grid column. Below that they stay blocks: the chip bar
+ * then sits above the chapters and sticks within the (long) question column; as its own grid item it would be stuck
+ * to its cell.
+ */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.questions-col,
+.questionnaire {
+  min-width: 0;
+}
+
+.chapters {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.sidebar .drawer-close,
+.mobile-bar {
+  display: none;
+}
+
+@media (width >= 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 440px);
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+}
+
+@media (width >= 1200px) {
+  .layout {
+    grid-template-columns: minmax(200px, 240px) minmax(0, 1fr) minmax(340px, 440px);
+  }
+
+  .questions-col,
+  .questionnaire {
+    display: contents;
+  }
+}
+
+@media (width < 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  .sidebar.drawer-open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    overflow-y: auto;
+    background: var(--bg);
+    padding: 16px;
+  }
+
+  .sidebar.drawer-open .drawer-close {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .mobile-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    border-color: var(--line);
+    background: var(--surface-1);
+    color: var(--text);
+    padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    text-align: left;
+  }
+
+  .app {
+    padding-bottom: 120px;
+  }
+}
+
+.mobile-label {
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+.mobile-hint {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.mobile-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* Language switcher: one button per offered language. */
+.language-switch {
+  display: flex;
+  gap: 4px;
+}
+
+.language-switch button {
+  min-width: 2.5em;
+  padding: 6px 8px;
+}
+
+.language-switch button[aria-pressed='true'] {
+  border-color: currentColor;
+  font-weight: 700;
+}

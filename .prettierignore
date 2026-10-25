@@ -1,0 +1,8 @@
+# Generated or third-party files keep their form.
+dist/
+reports/
+.stryker-tmp/
+package-lock.json
+public/licenses/
+# Prose: one paragraph per line, tables without padding to the widest cell (docs/DATA.md would get unreadable rows).
+*.md

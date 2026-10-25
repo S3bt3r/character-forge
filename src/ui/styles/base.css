@@ -1,0 +1,248 @@
+/*
+ * "Character Forge" look: dark surfaces, gold as the only accent.
+ * Deliberately without Blizzard graphics or logos; ornaments are made from CSS and our own SVG shapes.
+ */
+
+:root {
+  /* Design tokens */
+  --bg: #0d1015;
+  --surface-1: #11141a;
+  --surface-2: #151920;
+  --surface-3: #1a1f27;
+  --track: #262c36;
+  --gold: #d6b26a;
+  --gold-light: #ecd29a;
+  --on-gold: #1a140b;
+  --line: rgba(214, 178, 106, 0.3);
+  --line-soft: rgba(214, 178, 106, 0.14);
+  --line-card: rgba(214, 178, 106, 0.22);
+  --selected-bg: rgba(214, 178, 106, 0.12);
+  --text-strong: #f3ead6;
+  --text: #ece4d3;
+  --text-soft: #b3aa98;
+  --text-muted: #a89f8f;
+  --text-faint: #8a8273;
+  --positive: #9fd08a;
+  --negative: #ef9a83;
+  --horde: #d4553d;
+  --alliance: #5d8ad0;
+  --horde-text: #ef8f7a;
+  --alliance-text: #9ec3f0;
+  --font-display: 'Marcellus SC', 'Trajan Pro', Georgia, serif;
+  --font-serif: 'Alegreya', Georgia, serif;
+  --font-body: 'Alegreya Sans', 'Gill Sans', system-ui, sans-serif;
+  --radius: 4px;
+  --radius-button: 3px;
+  --hit: 44px;
+
+  color-scheme: dark;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Reserves space for the scrollbar so that the page does not jump when locking (dialog, drawer). */
+html {
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(214, 178, 106, 0.1), transparent 70%),
+    repeating-linear-gradient(45deg, rgba(214, 178, 106, 0.025) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(-45deg, rgba(214, 178, 106, 0.025) 0 1px, transparent 1px 22px);
+}
+
+.app {
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+}
+
+@media (width < 600px) {
+  .app {
+    padding: 16px 16px 48px;
+  }
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--text-strong);
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin: 16px 0 8px;
+}
+
+.tagline,
+.note,
+.racials,
+.spec-name,
+.eyebrow,
+.spec-score,
+.race-score,
+.count {
+  color: var(--text-muted);
+}
+
+.help {
+  color: var(--text-soft);
+}
+
+.help,
+.note {
+  font-size: 15px;
+}
+
+a {
+  color: var(--gold-light);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Controls */
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  min-height: var(--hit);
+  padding: 0 18px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-button);
+  color: #e3d7bd;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--text-strong);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button.primary {
+  padding: 0 20px;
+  background: var(--gold);
+  border-color: var(--gold-light);
+  color: var(--on-gold);
+  font-weight: 700;
+}
+
+button.primary:hover:not(:disabled) {
+  background: var(--gold-light);
+  color: var(--on-gold);
+}
+
+button.danger {
+  color: var(--negative);
+}
+
+button.link {
+  min-height: 36px;
+  padding: 0 8px;
+  border: none;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--text-muted);
+}
+
+input[type='text'],
+textarea {
+  width: 100%;
+  min-height: var(--hit);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-button);
+  padding: 8px 12px;
+}
+
+details > summary {
+  cursor: pointer;
+}
+
+/* Surfaces */
+.panel,
+.pair {
+  position: relative;
+  background: var(--surface-2);
+  border: 1px solid var(--line-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin: 16px 0;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.row input[type='text'] {
+  flex: 1 1 200px;
+  width: auto;
+}
+
+.notice {
+  background: var(--surface-3);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin: 12px 0;
+  font-size: 15px;
+}
+
+.notice p {
+  margin: 4px 0;
+}

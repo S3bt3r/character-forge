@@ -1,0 +1,12 @@
+/*
+ * Entry point of the stylesheets. The order of the imports is the cascade order and must not be
+ * rearranged without checking the rendering in the browser.
+ */
+@import './base.css';
+@import './layout.css';
+@import './chapters.css';
+@import './question-card.css';
+@import './ranking.css';
+@import './sheet.css';
+@import './profiles.css';
+@import './factor-extras.css';

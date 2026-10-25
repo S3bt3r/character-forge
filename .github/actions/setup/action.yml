@@ -1,0 +1,15 @@
+# Shared by every job: Node 24 (package.json requires >=24.11) and the locked dependencies, without their install scripts.
+name: Setup
+description: Node and the dependencies from package-lock.json
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version: 24
+        cache: npm
+    # Install scripts of dependencies do not run: one less moment third-party code runs (the build and the tests still run
+    # the dev tools, so this narrows the risk rather than removing it).
+    - run: npm ci --ignore-scripts
+      shell: bash

@@ -1,0 +1,461 @@
+/* Live ranking (right column). No display here; the breakpoints control that (drawer below 900px). */
+.sidebar > * + * {
+  margin-top: 14px;
+}
+
+.sidebar {
+  padding: 22px;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+.ranking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.ranking-header h2 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.faction-badge {
+  flex: 0 0 auto;
+  padding: 4px 12px;
+  border-radius: 2px;
+  border: 1px solid var(--text-faint);
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: var(--text-strong);
+}
+
+.faction-badge.faction-horde {
+  border-color: var(--horde);
+  background: rgba(192, 67, 47, 0.18);
+}
+
+.faction-badge.faction-alliance {
+  border-color: var(--alliance);
+  background: rgba(61, 111, 184, 0.18);
+}
+
+.ranking ol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+}
+
+.class-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  min-width: 0;
+}
+
+.class-name {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.spec-name {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.class-diamond {
+  flex: 0 0 auto;
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  transform: rotate(45deg);
+}
+
+/* Warning icon in the legend */
+.penalty-badge {
+  display: inline-flex;
+  align-items: center;
+  color: var(--negative);
+}
+
+.factors .penalty-cost {
+  margin-left: 18px;
+  font-size: 14px;
+  color: var(--negative);
+}
+
+/* The answers that rest on the same note as the deduction; listed here instead of as points of their own. */
+.factors .penalty-also {
+  margin-left: 18px;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+/* Accordion: the open rank as a widget in the class color */
+.ranking-item.open {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 6px 0 10px;
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--class-color) 55%, transparent);
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--class-color) 16%, transparent),
+      color-mix(in srgb, var(--class-color) 3%, transparent) 55%
+    ),
+    #171a24;
+}
+
+.ranking-item.open .ranking-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  text-align: left;
+  color: var(--text);
+  cursor: default;
+}
+
+.ranking-item.open .class-diamond {
+  display: none;
+}
+
+.ranking-item.open .class-title {
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ranking-item.open .class-name {
+  font-size: 27px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+.ranking-item.open .spec-name {
+  font-size: 15px;
+  color: var(--text-soft);
+}
+
+.rank-diamond {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin: 0 4px;
+  transform: rotate(45deg);
+  border-radius: 2px;
+  background: var(--gold);
+}
+
+.rank-diamond .rank {
+  transform: rotate(-45deg);
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--on-gold);
+}
+
+.score-ring-wrap {
+  position: relative;
+  flex: 0 0 auto;
+  width: 66px;
+  height: 66px;
+}
+
+.score-ring-wrap .score-value {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.class-summary {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.5;
+  color: #e3d9c4;
+}
+
+.open-sheet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  border: none;
+  font-weight: 700;
+}
+
+.open-sheet:hover:not(:disabled) {
+  color: inherit;
+  filter: brightness(1.08);
+}
+
+.ranking-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Closed ranks: compact, only rank, class/spec and percentage */
+.ranking-item:not(.open) {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.ranking-item:not(.open) .ranking-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  text-align: left;
+  color: var(--text);
+}
+
+.ranking-item:not(.open) .ranking-head:hover:not(:disabled) {
+  background: var(--surface-3);
+}
+
+.ranking-item:not(.open) .rank {
+  flex: 0 0 22px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.ranking-item:not(.open) .class-title {
+  flex: 1 1 auto;
+}
+
+.ranking-item:not(.open) .score-value {
+  flex: 0 0 48px;
+  text-align: right;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+/* Factors "Good fit because" / "Missing / speaks against" */
+.factor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.factors ul,
+.race-list,
+.secondary-list,
+.profiles,
+.perks,
+.tags {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.factors ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.factors h3,
+.factors h4,
+.sheet .factors h3,
+.sheet .factors h4 {
+  margin: 0 0 10px;
+  padding: 0;
+  border: none;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+}
+
+.factors li {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  font-size: 15px;
+}
+
+.factor-line {
+  display: flex;
+  gap: 8px;
+}
+
+.factors .sign {
+  font-weight: 700;
+}
+
+.factors.good h3,
+.factors.good h4,
+.factors.good .sign {
+  color: var(--positive);
+}
+
+.factors .ok {
+  font-style: italic;
+  color: var(--text-soft);
+}
+
+.factors.bad h3,
+.factors.bad h4,
+.factors.bad .sign,
+.factors .penalty .sign {
+  color: var(--negative);
+}
+
+/* One trait's note and badge per group; the gap keeps a badge without a note apart from the next note. */
+.factor-evidence {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.factor-evidence + .factor-evidence {
+  margin-top: 4px;
+}
+
+.factors .note {
+  margin-left: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+/* Provenance for races and professions: small and muted like the notes of the pro/con points. */
+.evidence-list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.evidence-trait {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Right factor column "Missing" (ranking widget and sheet): open the tooltip to the left, otherwise it sticks out over the edge. Below 600 px the full row applies. */
+@media (width >= 600px) {
+  .ranking-body .factors.bad .tip-body,
+  .sheet .factors.bad .tip-body {
+    left: auto;
+    right: 0;
+  }
+}
+
+/* Provenance badge (also as a tooltip trigger) */
+.provenance-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+button.provenance-badge {
+  position: relative;
+  cursor: help;
+}
+
+/* Hit area: 44 px tall, 24 px wide (14 px icon + 2 × 5 px), so it does not cover the link icon next to it. */
+button.provenance-badge::after {
+  content: '';
+  position: absolute;
+  inset: -15px -5px;
+}
+
+/* Provenance only as a colored icon; the color carries the distinction in addition to the shape. */
+.provenance-badge-confirmed,
+button.provenance-badge-confirmed:hover:not(:disabled) {
+  color: var(--positive);
+  background: none;
+}
+
+.provenance-badge-classic,
+button.provenance-badge-classic:hover:not(:disabled) {
+  color: var(--alliance-text);
+  background: none;
+}
+
+.provenance-badge-unconfirmed,
+button.provenance-badge-unconfirmed:hover:not(:disabled) {
+  color: #f2b86b;
+  background: none;
+}
+
+.provenance-badge-estimate,
+button.provenance-badge-estimate:hover:not(:disabled) {
+  color: var(--text-soft);
+  background: none;
+}
+
+/* Violet sets community guides apart from the four other colors; at least 8:1 on all surfaces. */
+.provenance-badge-community,
+button.provenance-badge-community:hover:not(:disabled) {
+  color: #c4a7f2;
+  background: none;
+}
+
+/* Legend below the ranking */
+.legend {
+  padding: 14px 4px 2px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.legend h3 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--text-soft);
+}
+
+.legend ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  color: var(--text-muted);
+}

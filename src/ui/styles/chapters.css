@@ -1,0 +1,189 @@
+/* Chapter bar: from 1200px on the left in its own column, below that as a chip row above the questions */
+.chapter-nav {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.chapter-nav-title {
+  margin: 0;
+  padding: 0 12px 10px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+}
+
+.chapter-chip {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-height: var(--hit);
+  padding: 6px 12px;
+  border-radius: var(--radius-button);
+  text-decoration: none;
+  color: var(--text);
+}
+
+.chapter-chip:hover {
+  background: var(--surface-3);
+}
+
+.chapter-chip.current {
+  background: var(--selected-bg);
+  box-shadow: inset 0 0 0 1px var(--line);
+  color: var(--text-strong);
+}
+
+.chapter-chip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.chapter-chip-name {
+  flex: 1 1 auto;
+}
+
+.count {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chapter-chip-bar {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.chapter-chip-bar span {
+  display: block;
+  height: 100%;
+  background: #8a7550;
+}
+
+.chapter-chip.complete .chapter-chip-bar span {
+  background: var(--gold);
+}
+
+.gate-marker {
+  padding: 0 5px;
+  border-radius: 8px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.gate-marker.boosted {
+  background: var(--gold);
+  color: var(--on-gold);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.gate-marker.muted {
+  color: var(--text-muted);
+  border: 1px dashed var(--text-faint);
+}
+
+@media (width < 1200px) {
+  .chapter-nav {
+    top: 0;
+    z-index: 15;
+    flex-direction: row;
+    gap: 6px;
+    margin: 0 -24px;
+    padding: 8px 24px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    border-top: none;
+    background: var(--bg);
+    box-shadow: 0 8px 16px -12px rgba(0, 0, 0, 0.9);
+    margin-bottom: 28px;
+  }
+
+  .chapter-nav-title {
+    display: none;
+  }
+
+  .chapter-chip {
+    flex: 0 0 auto;
+    min-width: 132px;
+    border: 1px solid var(--line-soft);
+    background: var(--surface-2);
+  }
+
+  /* Do not hide focused elements and jump targets under the fixed chip bar (WCAG 2.4.11). */
+  html {
+    scroll-padding-top: 92px;
+  }
+}
+
+@media (width < 600px) {
+  .chapter-nav {
+    margin: 0 -16px;
+    padding: 8px 16px;
+  }
+}
+
+/* Chapters */
+.chapter {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  scroll-margin-top: 20px;
+}
+
+.chapter-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.chapter-head h2 {
+  margin: 0;
+  font-size: 34px;
+}
+
+.ornament {
+  color: var(--gold);
+}
+
+.chapter-head p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-soft);
+}
+
+.gate-badge {
+  padding: 1px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #c9c0ad;
+  border: 1px solid rgba(214, 178, 106, 0.35);
+}
+
+.gate-badge.boosted {
+  padding: 2px 10px;
+  border: none;
+  background: var(--gold);
+  color: var(--on-gold);
+  font-weight: 700;
+}
+
+.gate-badge.muted {
+  border-style: dashed;
+  border-color: var(--text-faint);
+}

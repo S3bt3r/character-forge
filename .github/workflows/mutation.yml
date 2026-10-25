@@ -1,0 +1,44 @@
+# Mutation tests take many minutes, so they run only on request (Actions tab, "Run workflow") and never block a push.
+# The reports stay as an artifact of the run; CONTRIBUTING.md says when to run which.
+name: Mutation tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      config:
+        description: Which run
+        type: choice
+        default: logic
+        options:
+          - logic
+          - components
+
+permissions:
+  contents: read
+
+jobs:
+  mutation:
+    name: Stryker (${{ inputs.config }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      # The input reaches the shell only as a variable and through a fixed list, never as part of the script text.
+      - run: |
+          case "$CONFIG" in
+            logic) npm run test:mutation ;;
+            components) npm run test:mutation:ui ;;
+            *) echo "Unknown run: $CONFIG" >&2; exit 1 ;;
+          esac
+        env:
+          CONFIG: ${{ inputs.config }}
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        # Also when Stryker fails the threshold, so the report shows which mutants survived; not after a cancel.
+        if: ${{ !cancelled() }}
+        with:
+          name: mutation-report-${{ inputs.config }}
+          path: reports/
+          if-no-files-found: warn

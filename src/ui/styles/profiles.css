@@ -1,0 +1,55 @@
+/* Profiles & sharing */
+.profiles li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line-soft);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.profiles .row {
+  margin: 0;
+}
+
+.share label,
+.import label {
+  display: block;
+  margin-top: 12px;
+}
+
+.share textarea {
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+.import button {
+  margin-top: 8px;
+}
+
+.app-foot {
+  border-top: 1px solid var(--line-soft);
+  margin-top: 32px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.repo-link {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

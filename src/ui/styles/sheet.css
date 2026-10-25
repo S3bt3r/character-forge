@@ -1,0 +1,383 @@
+/* Character sheet (modal) */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 5vh 16px;
+  overflow-y: auto;
+  background: rgba(5, 7, 10, 0.78);
+  backdrop-filter: blur(3px);
+}
+
+.sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  gap: 26px 32px;
+  width: 100%;
+  max-width: 900px;
+  padding: 28px 30px 30px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(214, 178, 106, 0.45);
+  background: var(--surface-2);
+  box-shadow:
+    inset 0 3px 0 var(--class-color),
+    0 40px 80px -20px rgba(0, 0, 0, 0.9);
+}
+
+@media (width < 600px) {
+  .sheet {
+    padding: 22px 18px;
+  }
+}
+
+/* Header, specializations and description across the full width */
+.sheet-head,
+.spec-cards,
+.sheet-summary,
+.sheet .legend {
+  grid-column: 1 / -1;
+}
+
+.sheet-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(214, 178, 106, 0.2);
+}
+
+.sheet-head .class-diamond {
+  width: 11px;
+  height: 11px;
+}
+
+.sheet-title {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sheet-label {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--text-muted);
+}
+
+.sheet-head h2 {
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.sheet-score {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.sheet-close {
+  display: grid;
+  place-items: center;
+  width: var(--hit);
+  padding: 0;
+}
+
+.spec-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 12px;
+}
+
+.spec-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: var(--hit);
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(214, 178, 106, 0.2);
+  background: var(--surface-3);
+  text-align: left;
+}
+
+/* The selected tab carries the class color; the bar on top marks it by shape as well, not by color alone. */
+.spec-card.selected,
+.spec-card.selected:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--class-color) 50%, transparent);
+  background: color-mix(in srgb, var(--class-color) 10%, var(--surface-2));
+  box-shadow: inset 0 3px 0 var(--class-color);
+}
+
+.spec-card .eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.spec-card strong {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-strong);
+}
+
+.spec-card .spec-score {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
+.sheet-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 22px;
+  border-radius: var(--radius);
+  background: var(--surface-3);
+}
+
+.sheet-summary .class-summary {
+  font-size: 18px;
+}
+
+.sheet-summary .factor-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 16px 32px;
+}
+
+.sheet h3 {
+  margin: 0 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 15px;
+  letter-spacing: 0.16em;
+  color: var(--gold-light);
+}
+
+.sheet .help {
+  font-size: 15px;
+}
+
+/* Races */
+.race-list > li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(214, 178, 106, 0.1);
+}
+
+.race-list summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--hit);
+  list-style: none;
+}
+
+.race-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.race-list summary::after {
+  content: '›';
+  flex: 0 0 auto;
+  margin-left: 4px;
+  font-size: 20px;
+  color: var(--gold);
+  transition: transform 0.15s ease;
+}
+
+.race-list details[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.race-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  font-size: 16px;
+}
+
+.race-score {
+  margin-left: auto;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.race-meter {
+  display: block;
+  height: 3px;
+  margin-top: 6px;
+  border-radius: 2px;
+  background: var(--track);
+  overflow: hidden;
+}
+
+.race-meter span {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+}
+
+.faction {
+  padding: 0 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  border: 1px solid transparent;
+}
+
+.faction.faction-horde {
+  color: var(--horde-text);
+  border-color: rgba(212, 85, 61, 0.6);
+}
+
+.faction.faction-alliance {
+  color: var(--alliance-text);
+  border-color: rgba(93, 138, 208, 0.7);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  padding: 1px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.tag.new {
+  padding: 0 8px;
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--on-gold);
+  font-weight: 700;
+}
+
+/* Primary professions */
+.professions .pair {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 16px;
+  border: none;
+  background: var(--surface-3);
+}
+
+.pair-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-serif);
+  font-size: 18px;
+}
+
+.pair-score {
+  font-weight: 700;
+  color: var(--gold-light);
+}
+
+.professions .pair .help {
+  margin: 0;
+}
+
+.professions .pair .help strong {
+  color: var(--text-strong);
+}
+
+.professions details {
+  margin-top: 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+}
+
+.professions summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--hit);
+  padding: 0 14px;
+  font-size: 15px;
+  list-style: none;
+}
+
+.professions summary::-webkit-details-marker {
+  display: none;
+}
+
+.professions summary::after {
+  content: '›';
+  font-size: 20px;
+  color: var(--gold);
+  transition: transform 0.15s ease;
+}
+
+.professions details[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.professions details .pair {
+  margin: 0 12px 12px;
+}
+
+/* Secondary professions and perks */
+.secondary-list > li,
+.perks > li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(214, 178, 106, 0.1);
+}
+
+.secondary-profession-head,
+.perk-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.secondary-profession-score {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.perk-head .tag {
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+/* Info box */
+.info-box {
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--surface-3);
+  font-size: 14px;
+  color: var(--text-soft);
+}
+
+.info-box p {
+  margin: 0;
+}
+
+.info-box p + p {
+  margin-top: 6px;
+}

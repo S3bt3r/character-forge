@@ -1,0 +1,50 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "testRunner": "vitest",
+  "plugins": ["@stryker-mutator/vitest-runner", "@stryker-mutator/typescript-checker"],
+  "checkers": ["typescript"],
+  "tsconfigFile": "tsconfig.json",
+  "mutate": [
+    "src/domain/**/*.ts",
+    "src/app/**/*.ts",
+    "src/persistence/**/*.ts",
+    "src/i18n/lang.ts",
+    "src/ui/t.ts",
+    "src/language-init.ts",
+    "src/data/localize.ts",
+    "src/data/known.ts",
+    "src/data/sources.ts",
+    "src/data/specs/build.ts",
+    "src/data/evidence/helpers.ts",
+    "src/data/rated.ts",
+    "src/data/questions/helpers.ts",
+    "src/ui/selectors.ts",
+    "src/ui/format.ts",
+    "src/ui/answerState.ts",
+    "src/ui/keyboard.ts",
+    "src/ui/catalog.ts",
+    "src/ui/storageMessages.ts"
+  ],
+  "ignoreStatic": false,
+  "reporters": ["clear-text", "progress", "html", "json"],
+  "htmlReporter": {
+    "fileName": "reports/mutation/index.html"
+  },
+  "jsonReporter": {
+    "fileName": "reports/mutation/mutation.json"
+  },
+  "incremental": true,
+  "incrementalFile": "reports/stryker-incremental.json",
+  "thresholds": {
+    "high": 80,
+    "low": 60,
+    "break": 98
+  },
+  "vitest": {
+    "configFile": "vitest.stryker.config.ts"
+  },
+  "concurrency": 4,
+  "typescriptChecker": {
+    "prioritizePerformanceOverAccuracy": true
+  }
+}

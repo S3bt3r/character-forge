@@ -1,0 +1,46 @@
+/* "Show n more" below a pro/con list */
+.factors .more-factors {
+  margin: 6px 0 0 18px;
+  padding: 0;
+}
+
+/* Link icon to the source after a provenance badge */
+.provenance-badge-with-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The link's hit area starts only after the icon's (icon 14 px + 5 px, gap 8 px − 3 px). */
+.provenance-badge-with-links .source-link::after {
+  inset: -11px -3px;
+}
+
+.factors .provenance-badge-with-links {
+  margin-left: 18px;
+}
+
+.factors .provenance-badge-with-links .tip {
+  margin-left: 0;
+}
+
+.source-link {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: var(--gold-light);
+}
+
+.source-link:hover {
+  background: var(--selected-bg);
+}
+
+/* Enlarge hit area to 44px */
+.source-link::after {
+  content: '';
+  position: absolute;
+  inset: -11px;
+}
